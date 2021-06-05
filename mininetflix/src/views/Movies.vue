@@ -2,8 +2,8 @@
 <div class="c-Main__container">
     <h1>Mini Netflix</h1>
     <div class="c-Main__wrapper">
-        <div v-for="tp in titleAndPoster" class="c-Main__block" :key="tp">
-            <img :src="tp.posterPath" width="200px" height="200px" v-on:click="goToDetailsPage(tp.imdbID)">
+        <div v-for="poster in posters" class="c-Main__block" :key="poster">
+            <img :src="poster.posterURL" width="200px" height="200px" v-on:click="goToDetailsPage(poster.imdbID)">
         </div>
     </div>
 </div>
@@ -15,8 +15,7 @@ export default {
     name: 'Movies',
     data() {
         return {
-            titleAndPoster: [],
-            selectedMovie: ''
+            posters: []
         };
     },
     mounted: function() {
@@ -25,18 +24,11 @@ export default {
 
         for(var i=0; i < imdbIds.length; i++) {
             var self = this;
-            let movieUrl = 'http://www.omdbapi.com/?i='+imdbIds[i]+'&apikey=18e276e3';
-            let posterUrl = 'http://img.omdbapi.com/?i='+imdbIds[i]+'&apikey=18e276e3&h=500';
 
-            self.$http.get(movieUrl).then(function(response){
-                if(response.status == "200"){
-                    self.titleAndPoster.push({
-                        title: response.data.Title,
-                        posterPath: posterUrl,
-                        imdbID: response.data.imdbID
-                    });
-                }
-            });
+            self.posters.push({
+                posterURL: 'http://img.omdbapi.com/?i='+imdbIds[i]+'&apikey=18e276e3&h=500',
+                imdbID: imdbIds[i]
+            })
         }
     },
     methods: {

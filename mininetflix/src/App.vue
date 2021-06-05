@@ -1,21 +1,13 @@
 <template>
   <div id="app">
-    <Movies />
+    <router-view/>
   </div>
 </template>
 
-<script>
-import Movies from './components/Movies.vue'
-
-export default {
-  name: 'App',
-  components: {
-    Movies
-  }
-}
-</script>
-
 <style>
+body {
+  background-color: #000;
+}
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

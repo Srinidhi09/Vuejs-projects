@@ -30,23 +30,47 @@ export default {
   name: 'MovieDetails',
   data() {
     return {
-        movieDetails: {},
-        posterUrl: ''
+        storeMovieList: [],
+        posterUrl: 'http://img.omdbapi.com/?i='+this.$route.params.id+'&apikey=18e276e3&h=520'
     };
   },
-  mounted: function() {
-    var self = this;
-    let movieUrl = 'http://www.omdbapi.com/?i='+this.$route.params.id+'&apikey=18e276e3';
-    this.posterUrl = 'http://img.omdbapi.com/?i='+this.$route.params.id+'&apikey=18e276e3&h=520';
-    self.$http.get(movieUrl).then(function(response){
-      this.movieDetails = response.body;
-    });
+  computed: {
+    movieDetails() {
+      let storyMovieFinal = {};
+      this.storeMovieList.forEach(storeMovie =>{
+        if (storeMovie.imdbID === this.$route.params.id) {
+          storyMovieFinal = storeMovie;
+        }
+      })
+      return storyMovieFinal;
+    }
+  },
+   mounted() {
+     this.storeMovieList = this.$store.getters.getMovieDetails;
+
+     if (this.storeMovieList.length > 0){
+       if (!this.isExist()) {
+          this.$store.dispatch("getMovieDetails", {id: this.$route.params.id});
+       }
+     } else {
+       this.$store.dispatch("getMovieDetails", {id: this.$route.params.id});
+     }
+  }, 
+  methods : {
+    isExist : function(){
+      for(var i=0; i < this.storeMovieList.length; i++){
+        if( this.storeMovieList[i].imdbID == this.$route.params.id){
+          return true;
+        }
+      }
+      return false;
+    }
   }
 }
 </script>
 
 <style>
-.c-Main__containerr {
+.c-Main__containerr{
   color: #fff;
   display: flex;
   width: 85%;

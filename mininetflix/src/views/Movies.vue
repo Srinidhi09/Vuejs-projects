@@ -10,7 +10,6 @@
 </template>
 
 <script>
-
 export default {
     name: 'Movies',
     data() {
@@ -19,12 +18,10 @@ export default {
         };
     },
     mounted: function() {
-        let imdbIds = ['tt0848228', 'tt2294629', 'tt0499549', 'tt1375666', 'tt1190080',
-                    'tt0848228', 'tt2294629', 'tt0499549', 'tt1375666', 'tt1190080', 'tt1375666', 'tt1190080', ];
+        let imdbIds = ['tt0848228', 'tt2294629', 'tt0499549', 'tt1375666', 'tt1190080']
 
         for(var i=0; i < imdbIds.length; i++) {
             var self = this;
-
             self.posters.push({
                 posterURL: 'http://img.omdbapi.com/?i='+imdbIds[i]+'&apikey=18e276e3&h=500',
                 imdbID: imdbIds[i]

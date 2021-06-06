@@ -2,17 +2,16 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
 
-//load Vuex
 Vue.use(Vuex);
 
 //to handle state
 const state = {
-movieDetails: []
+    movieDetails: []
 }
 
 const getters =  {
     getMovieDetails: state => {
-      return state.movieDetails
+      return state.movieDetails;
     }
 }
 
@@ -20,7 +19,7 @@ const getters =  {
 const actions = {
     getMovieDetails({ commit }, { id }) {
         axios.get('http://www.omdbapi.com/?i='+id+'&apikey=18e276e3').then(response => {
-            commit('SET_MOVIE_DETAILS', response.data)
+            commit('SET_MOVIE_DETAILS', response.data);
         })
     }
 }
@@ -28,14 +27,14 @@ const actions = {
 //to handle mutations
 const mutations = {
     SET_MOVIE_DETAILS(state, movieDetails) {
-        state.movieDetails.push(movieDetails)
+        state.movieDetails.push(movieDetails);
     }
 }
 
 //export store module
 export default new Vuex.Store({
-state,
-getters,
-actions,
-mutations
+    state,
+    getters,
+    actions,
+    mutations
 })

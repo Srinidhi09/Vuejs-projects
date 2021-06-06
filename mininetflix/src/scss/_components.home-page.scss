@@ -1,0 +1,39 @@
+@import 'all.global-variables';
+
+.c-Home__container {
+    max-width: 80%;
+    margin: 0 auto;
+}
+
+.c-Home__container h1 {
+    color: $header;
+}
+
+.c-Home__wrapper {
+    margin: 2em 0;
+    display: flex;
+    flex-flow: wrap;
+    flex-direction: column;
+    justify-content: center;
+
+    @media (min-width: $bp-small) {
+        flex-direction: row;
+    }
+}
+
+.c-Home__block {
+    cursor: pointer;
+    margin: 1em;
+}
+
+.c-Home__block img {
+    border-radius: 6px;
+    border: 1px solid $border;
+    transition: transform .5s ease;
+
+    &:hover {
+        box-shadow: 1px 1px 10px $white;
+        transform: scale(1.1);
+        border: 0;
+    }
+}

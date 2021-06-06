@@ -1,11 +1,10 @@
 <template>
   <div id="app">
     <router-view/>
-    <myStore/>
   </div>
 </template>
 
-<style>
+<style lang="scss">
 body {
   background-color: #000;
 }
@@ -15,6 +14,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  margin: 60px 0;
 }
 </style>

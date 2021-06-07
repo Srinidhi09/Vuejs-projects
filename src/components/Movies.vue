@@ -20,8 +20,7 @@ export default {
         };
     },
     mounted: function() {
-        let imdbIds = ['tt0454921', 'tt5753856', 'tt0111161', 'tt0944947',
-        'tt0386676', 'tt0398286', 'tt2294629', 'tt0903747'];
+        let imdbIds = ['tt0454921', 'tt5753856', 'tt0111161', 'tt0944947', 'tt0386676', 'tt0398286', 'tt2294629', 'tt0903747'];
         for(var i=0; i < imdbIds.length; i++) {
             var self = this;
             self.posters.push({

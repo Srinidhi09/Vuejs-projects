@@ -29,42 +29,27 @@ export default {
   name: 'MovieDetails',
   data() {
     return {
-        storeMovieList: [],
+        id: this.$route.params.id,
         posterUrl: 'http://img.omdbapi.com/?i='+this.$route.params.id+'&apikey=18e276e3&h=400'
     };
   },
   computed: {
     movieDetails() {
-      let storeMovieFinal = {};
-      this.storeMovieList.forEach(storeMovie =>{
-        if (storeMovie.imdbID === this.$route.params.id) {
-          storeMovieFinal = storeMovie;
-        }
-      })
-      return storeMovieFinal;
+      let movieDetails = {};
+      if (this.$store.getters.getMovieById(this.id)[0] != null) {
+        movieDetails = this.$store.getters.getMovieById(this.id)[0];
+      }
+      return movieDetails; 
     }
   },
    created() {
-    this.storeMovieList = this.$store.getters.getMovieDetails;
-    if (this.storeMovieList.length > 0){
-       if (!this.isExist()) {
-          this.$store.dispatch("getMovieDetails", {id: this.$route.params.id});
-       }
-    } else {
-       this.$store.dispatch("getMovieDetails", {id: this.$route.params.id});
-    }
-  }, 
-  methods : {
-    isExist (){
-      for(var i=0; i < this.storeMovieList.length; i++){
-        if( this.storeMovieList[i].imdbID == this.$route.params.id){
-          return true;
-        }
-      }
-      return false;
-    },
-    redirectToHome() {
-      window.location.href = '/';
+    // get filtered movie from store movies list
+    const movie = this.$store.getters.getMovieById(this.id);
+    
+    // if movie is not present (initial load or new movie click)
+    if (movie.length === 0) {
+      // dispatch a store action 
+      this.$store.dispatch('getMovieDetails', this.id);
     }
   }
 }

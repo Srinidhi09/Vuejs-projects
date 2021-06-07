@@ -4,7 +4,7 @@
     <div class="c-Detail__container">
       <div class="c-Detail__poster-wrap">
         <img :src="posterUrl" alt="Movie poster">
-        <p @click="redirectToHome()">>> Go Back</p>
+        <router-link :to="{ name: 'Movies'}">Back to all movies</router-link>
       </div>
       <div class="c-Detail__body">
         <p>{{movieDetails.Plot}}</p>

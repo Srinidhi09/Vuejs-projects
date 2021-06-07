@@ -11,6 +11,10 @@
 
 <script>
 import '../scss/_components.home-page.scss'
+import {
+    imdbIds,
+    getPosterUrl
+} from '../utils/constants';
 
 export default {
     name: 'Movies',
@@ -19,12 +23,11 @@ export default {
             posters: []
         };
     },
-    mounted: function() {
-        let imdbIds = ['tt0454921', 'tt5753856', 'tt0111161', 'tt0944947', 'tt0386676', 'tt0398286', 'tt2294629', 'tt0903747'];
+    created () {
         for(var i=0; i < imdbIds.length; i++) {
             var self = this;
             self.posters.push({
-                posterURL: 'http://img.omdbapi.com/?i='+imdbIds[i]+'&apikey=18e276e3&h=500',
+                posterURL: getPosterUrl(imdbIds[i],'400'),
                 imdbID: imdbIds[i]
             });
         }

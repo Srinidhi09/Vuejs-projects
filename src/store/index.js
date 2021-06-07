@@ -1,6 +1,9 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
+import {
+    getMovieUrl
+} from '../utils/constants';
 
 Vue.use(Vuex);
 
@@ -21,7 +24,7 @@ const getters =  {
 const actions = {
     getMovieDetails({ commit }, id) {
         return new Promise((resolve, reject) => {
-            axios.get('http://www.omdbapi.com/?i='+id+'&apikey=18e276e3').then(response => {
+            axios.get(getMovieUrl(id)).then(response => {
                 if (response.status === 200) {
                     // handle OMDB errors
                     if (response.data.Response === "False") {

@@ -4,7 +4,7 @@
     <div class="c-Detail__container">
       <div class="c-Detail__poster-wrap">
         <img :src="posterUrl" alt="Movie poster">
-        <router-link :to="{ name: 'Movies'}">Back to all movies</router-link>
+        <router-link :to="{ name: 'Movies'}">Back To All Movies</router-link>
       </div>
       <div class="c-Detail__body">
         <p>{{movieDetails.Plot}}</p>
@@ -20,13 +20,16 @@
       </div>
     </div>
   </div>
-  <div v-else v-cloak>
-    <p>No Data Found.</p>
+  <div v-else v-cloak class="c-Detail c-Detail__no-data">
+    <h2>No Data Found.</h2>
   </div>
 </template>
 
 <script>
-import '../scss/_components.details-page.scss'
+import '../scss/_components.details-page.scss';
+import {
+    getPosterUrl
+} from '../utils/constants';
 
 export default {
   name: 'MovieDetails',
@@ -34,7 +37,7 @@ export default {
     return {
         movieDetails: {},
         id: this.$route.params.id,
-        posterUrl: 'http://img.omdbapi.com/?i='+this.$route.params.id+'&apikey=18e276e3&h=400'
+        posterUrl: getPosterUrl(this.$route.params.id,'400')
     };
   },
    created() {

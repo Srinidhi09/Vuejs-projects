@@ -4,7 +4,6 @@
   width: 85%;
   margin: 2em auto;
   color: $white;
-  text-align: center;
 
   @media (min-width: $bp-medium) {
     margin: 6em auto;
@@ -42,6 +41,18 @@
   cursor: pointer;
 }
 
+.c-Detail__poster-wrap a {
+  display: block;
+  color: $white;
+  text-decoration: none;
+  margin-bottom: 1em;
+
+  &:before {
+    content: "<";
+    padding-right: .5em;
+  }
+}
+
 .c-Detail__poster-wrap img {
   width: 100%;
   border: 1px solid $border;
@@ -63,9 +74,16 @@
 
   &:first-child {
     margin-top: 0;
+    font-weight: 600;
+    font-style: italic;
   }
 }
 
 .c-Detail__body span {
   color: $grey;
+}
+
+.c-Detail__no-data h2 {
+  color: $white;
+  text-align: left;
 }

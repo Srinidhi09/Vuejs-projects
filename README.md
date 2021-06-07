@@ -2,7 +2,7 @@
 Minimal two page SPA that demonstrates the knowledge of four main features of VueJS
 1) Component syntax and structure
 2) Passing data to/from components
-3) Managing global state (using Vuex)
+3) Managing global state (using Vuex store)
 4) Handing routes
 
 ## Prerequisites

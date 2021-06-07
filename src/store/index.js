@@ -20,18 +20,21 @@ const getters =  {
 //to handle actions
 const actions = {
     getMovieDetails({ commit }, id) {
-        axios.get('http://www.omdbapi.com/?i='+id+'&apikey=18e276e3').then(response => {
-            if (response.status === 200) {
-                // handle OMDB errors
-                if (response.data.Response === "False") {
-                    alert(response.data.Error)
+        return new Promise((resolve, reject) => {
+            axios.get('http://www.omdbapi.com/?i='+id+'&apikey=18e276e3').then(response => {
+                if (response.status === 200) {
+                    // handle OMDB errors
+                    if (response.data.Response === "False") {
+                        reject(response.data.Error)
+                    }
+                    commit('POPULATE_MOVIES', response.data);
+                    resolve(response.data)
+                } else {
+                    reject('Non 200 response from OMDB api call. response code: ' + response.status)
                 }
-                commit('POPULATE_MOVIES', response.data);
-            } else {
-                alert('Non 200 response from OMDB api call. response code: ' + response.status)
-            }
-        }).catch( err => {
-            alert('Error occurred on invoking an API call' + err)
+            }).catch( err => {
+                reject('Error occurred on invoking an API call' + err)
+            })
         })
     }
 }

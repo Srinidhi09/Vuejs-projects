@@ -1,5 +1,5 @@
 <template>
-  <div class="c-Detail">
+  <div v-if="Object.keys(movieDetails).length" class="c-Detail">
     <h1>{{movieDetails.Title}} ({{movieDetails.Year}})</h1>
     <div class="c-Detail__container">
       <div class="c-Detail__poster-wrap">
@@ -20,6 +20,9 @@
       </div>
     </div>
   </div>
+  <div v-else v-cloak>
+    <p>No Data Found.</p>
+  </div>
 </template>
 
 <script>
@@ -29,18 +32,10 @@ export default {
   name: 'MovieDetails',
   data() {
     return {
+        movieDetails: {},
         id: this.$route.params.id,
         posterUrl: 'http://img.omdbapi.com/?i='+this.$route.params.id+'&apikey=18e276e3&h=400'
     };
-  },
-  computed: {
-    movieDetails() {
-      let movieDetails = {};
-      if (this.$store.getters.getMovieById(this.id)[0] != null) {
-        movieDetails = this.$store.getters.getMovieById(this.id)[0];
-      }
-      return movieDetails; 
-    }
   },
    created() {
     // get filtered movie from store movies list
@@ -49,7 +44,13 @@ export default {
     // if movie is not present (initial load or new movie click)
     if (movie.length === 0) {
       // dispatch a store action 
-      this.$store.dispatch('getMovieDetails', this.id);
+      this.$store.dispatch('getMovieDetails', this.id).then((res) => {
+        this.movieDetails = res
+      }).catch((err) => {
+        alert(err)
+      })
+    } else {
+      this.movieDetails = movie[0]
     }
   }
 }

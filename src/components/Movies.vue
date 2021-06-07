@@ -2,7 +2,7 @@
 <div class="c-Home__container">
     <h1>Mini Netflix</h1>
     <div class="c-Home__wrapper">
-        <div v-for="poster in posters" class="c-Home__block" :key="poster">
+        <div v-for="poster in posters" class="c-Home__block" :key="poster.imdbID">
             <img :src="poster.posterURL" width="200px" height="200px" v-on:click="goToDetailsPage(poster.imdbID)">
         </div>
     </div>

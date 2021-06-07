@@ -44,7 +44,7 @@ export default {
       return storeMovieFinal;
     }
   },
-   mounted() {
+   created() {
     this.storeMovieList = this.$store.getters.getMovieDetails;
     if (this.storeMovieList.length > 0){
        if (!this.isExist()) {

@@ -1,4 +1,5 @@
 <template>
+<div>
   <div v-if="Object.keys(movieDetails).length" class="c-Detail">
     <h1>{{movieDetails.Title}} ({{movieDetails.Year}})</h1>
     <div class="c-Detail__container">
@@ -20,9 +21,10 @@
       </div>
     </div>
   </div>
-  <div v-else v-cloak class="c-Detail c-Detail__no-data">
-    <h2>No Data Found.</h2>
+  <div v-else-if="noData" class="c-Detail c-Detail__no-data">
+    <h2>{{noData}}</h2>
   </div>
+</div>
 </template>
 
 <script>
@@ -35,6 +37,7 @@ export default {
   name: 'MovieDetails',
   data() {
     return {
+        noData: null,
         movieDetails: {},
         id: this.$route.params.id,
         posterUrl: getPosterUrl(this.$route.params.id,'400')
@@ -43,17 +46,18 @@ export default {
    created() {
     // get filtered movie from store movies list
     const movie = this.$store.getters.getMovieById(this.id);
-    
+
     // if movie is not present (initial load or new movie click)
     if (movie.length === 0) {
       // dispatch a store action 
       this.$store.dispatch('getMovieDetails', this.id).then((res) => {
-        this.movieDetails = res
+        this.movieDetails = res;
       }).catch((err) => {
-        alert(err)
+        this.noData = 'No Data Found';
+        alert(err);
       })
     } else {
-      this.movieDetails = movie[0]
+      this.movieDetails = movie[0];
     }
   }
 }

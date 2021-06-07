@@ -16,7 +16,7 @@ const state = {
 const getters =  {
     getMovieById: state => {
         // filter movies 
-        return id => state.movieDetailsList.filter(item => item.imdbID === id)
+        return id => state.movieDetailsList.filter(item => item.imdbID === id);
     }
 }
 
@@ -28,15 +28,15 @@ const actions = {
                 if (response.status === 200) {
                     // handle OMDB errors
                     if (response.data.Response === "False") {
-                        reject(response.data.Error)
+                        reject(response.data.Error);
                     }
                     commit('POPULATE_MOVIES', response.data);
                     resolve(response.data)
                 } else {
-                    reject('Non 200 response from OMDB api call. response code: ' + response.status)
+                    reject('Non 200 response from OMDB api call. response code: ' + response.status);
                 }
             }).catch( err => {
-                reject('Error occurred on invoking an API call' + err)
+                reject('Error occurred on invoking an API call' + err);
             })
         })
     }
